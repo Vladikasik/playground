@@ -32,12 +32,18 @@ window.matchMedia('(min-width: 901px)').addEventListener('change', e => { if (e.
 $$('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
 
 /* ---------------- reveal on scroll ---------------- */
+// blocks are visible without this; ones that arrive later get a short rise just before they enter the view
 const reveals = $$('.reveal');
-if (reduceMotion || !('IntersectionObserver' in window)) reveals.forEach(el => el.classList.add('in'));
-else {
+if (!reduceMotion && 'IntersectionObserver' in window) {
+  let settled = false;
   const io = new IntersectionObserver(entries => {
-    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }, { rootMargin: '0px 0px -6% 0px' });
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      io.unobserve(e.target);
+      if (settled) e.target.classList.add('in');
+    }
+    settled = true;
+  }, { rootMargin: '0px 0px 12% 0px' });
   reveals.forEach(el => io.observe(el));
 }
 
