@@ -448,3 +448,26 @@ h1, h2, h3, h4 {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 .nowrap { white-space: nowrap; }
+
+/* ---------------- rendered media ---------------- */
+.hero-photo { background: #000; }
+.hero-photo .hero-media, .hero-photo .hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero-photo .hero-media img { object-fit: cover; object-position: 50% 50%; }
+.product-media { background: #000; }
+.product-media.plot { background: var(--bg-2); }
+.plot canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.spin { cursor: grab; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
+.spin.dragging { cursor: grabbing; }
+.spin canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.spin .spin-poster { transition: opacity 0.4s; }
+.spin.is-live .spin-poster { opacity: 0; }
+.spin:focus-visible { outline: 2px solid var(--led); outline-offset: -2px; }
+.inside-view { background: #000; }
+.inside-canvas {
+  -webkit-mask-image: radial-gradient(120% 95% at 50% 50%, #000 62%, transparent 100%);
+  mask-image: radial-gradient(120% 95% at 50% 50%, #000 62%, transparent 100%);
+}
+@media (max-width: 760px) {
+  .hero-photo .hero-media { position: relative; display: block; height: 58svh; min-height: 340px; }
+  .hero-photo .hero-shade { height: 58svh; min-height: 340px; }
+}

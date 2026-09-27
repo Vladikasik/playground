@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/site.css">
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module" src="assets/site.js"></script>
 </head>
 <body>
@@ -41,8 +40,8 @@
     </div>
   </section>
   <figure class="bleed">
-    <img src="assets/img/lock.jpg" alt="The view from Wisp's camera: the attacker's face, lit and tracked" width="1600" height="1000">
-    <figcaption>Drone camera &middot; 6 s after the press</figcaption>
+    <img src="assets/img/r/front.webp" alt="Wisp from the front: two emitters lit in their reflectors, the camera between them, behind a smoked sapphire window" width="1800" height="1125">
+    <figcaption>Optics &middot; emitters at a quarter of full output</figcaption>
   </figure>
 
   <section class="section" id="launch">
@@ -129,9 +128,9 @@
         <h2 class="h2">Six ways around a head.</h2>
         <p class="lede">A light that sits still is easy to block. Orbit keeps Wisp moving between six flight patterns, and every one of them holds the beam on the eyes.</p>
       </div>
-      <div class="viz reveal" data-patterns data-live>
-        <canvas data-3d="patterns" data-poster="assets/img/halo.jpg" aria-label="Live 3D: Wisp flying a pattern around a head and lighting the eyes"></canvas>
-        <span class="media-tag"><i class="live-dot"></i>Orbit &middot; live 3D</span>
+      <div class="viz reveal plot" data-plot>
+        <canvas aria-label="Top-down plot of the selected flight pattern around a head"></canvas>
+        <span class="media-tag">Orbit &middot; top-down, live</span>
         <div class="viz-ui">
           <div class="viz-readout"><strong data-readout-name>Orbit</strong><span data-readout-note>Tight circle at eye level, half a meter out.</span></div>
           <div class="pattern-tabs" role="group" aria-label="Flight pattern">
@@ -195,19 +194,19 @@
   <section class="section" id="silk">
     <div class="wrap">
       <article class="product flip">
-        <div class="product-media" data-live>
-          <canvas data-3d="harness" data-view="front" data-poster="assets/img/arm.jpg" aria-label="Live 3D: the front of the Silk harness and its chest clasp"></canvas>
-          <span class="media-tag"><i class="live-dot"></i>Silk &middot; live 3D</span>
+        <div class="product-media">
+          <img src="assets/img/r/harness_front.webp" alt="The front of the Silk harness: two padded shoulder straps and the sternum strap with the trigger clasp" loading="lazy" width="1800" height="1200">
+          <span class="media-tag">Silk &middot; front</span>
         </div>
         <div class="product-copy">
           <span class="eyebrow">04 &middot; Silk harness</span>
           <h2 class="h2">The trigger is on your chest.</h2>
-          <p class="body">The clasp where the strips meet is the only control. Press it firmly to launch. Press again to change target. Hold it to call Wisp back.</p>
+          <p class="body">The clasp on the sternum strap is the only control. Press it firmly to launch. Press again to change target. Hold it to call Wisp back.</p>
           <dl class="kv">
             <div><dt>Clasp</dt><dd>Two-stage press. A light touch does nothing.</dd></div>
-            <div><dt>Nest</dt><dd>Magnetic dock with charging contacts, between the shoulder blades.</dd></div>
-            <div><dt>Strips</dt><dd>Eight, 11 mm wide and 0.8 mm thick, with light pipes that show status.</dd></div>
-            <div><dt>Power</dt><dd>A thin cell in the nest keeps Wisp topped up for five days.</dd></div>
+            <div><dt>Back plate</dt><dd>A contoured carbon plate between the shoulder blades, with the magnetic dock and charging contacts.</dd></div>
+            <div><dt>Straps</dt><dd>Two padded 38 mm shoulder straps that return under the arms, like a backpack, and a 20 mm sternum strap.</dd></div>
+            <div><dt>Power</dt><dd>A thin cell in the plate keeps Wisp topped up for five days.</dd></div>
           </dl>
         </div>
       </article>
@@ -259,12 +258,12 @@
   </section>
 
   <section class="film">
-    <img src="assets/img/close.jpg" alt="" loading="lazy" width="1600" height="1000">
+    <img src="assets/img/r/hero.webp" alt="" loading="lazy" width="1800" height="1125">
     <div class="wrap">
-      <span class="eyebrow">Scenario film &middot; 24 s &middot; real-time 3D</span>
+      <span class="eyebrow">Previs &middot; 24 s &middot; real-time 3D</span>
       <h2 class="h2">See the whole sequence.</h2>
-      <p class="lede">Every system on this page, working together on a wet street at night. Ride along in the drone's camera.</p>
-      <a class="btn btn-primary" href="scenario.html">Watch the scenario <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h12M9.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+      <p class="lede">Every system on this page in one encounter, blocked out as a real-time previs. Ride along in the drone's camera.</p>
+      <a class="btn btn-primary" href="scenario.html">Watch the previs <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h12M9.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
     </div>
   </section>
 </main>
@@ -281,7 +280,7 @@
           <li><a href="index.html#system">Silk harness</a></li>
           <li><a href="index.html#inside">Wisp drone</a></li>
           <li><a href="technology.html#orbit">Orbit autonomy</a></li>
-          <li><a href="scenario.html">Scenario film</a></li>
+          <li><a href="scenario.html">Previs film</a></li>
         </ul>
       </div>
       <div>

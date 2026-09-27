@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/site.css">
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module" src="assets/site.js"></script>
 </head>
 <body>
@@ -33,16 +32,19 @@
   <a class="btn btn-primary" href="scenario.html">Watch the scenario <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h12M9.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
 </div>
 <main id="main">
-  <section class="hero" data-live>
-    <canvas class="hero-canvas" data-3d="hero" data-poster="assets/img/orbit.jpg" aria-label="The Wisp drone hovering, rendered live in your browser"></canvas>
+  <section class="hero hero-photo">
+    <picture class="hero-media">
+      <source media="(max-width: 760px)" srcset="assets/img/r/flight-m.webp">
+      <img src="assets/img/r/flight.webp" alt="Wisp hovering in the dark with both emitters on, two beams cutting through haze" fetchpriority="high" width="2400" height="1350">
+    </picture>
     <div class="hero-shade"></div>
     <div class="wrap hero-content">
       <span class="eyebrow">Personal protection &middot; In development</span>
       <h1 class="h1">Stop the threat. Not the person.</h1>
-      <p class="lede">Wisp is a 120-gram drone that rides between your shoulder blades, launches in under a second and takes away an attacker's aim with light. Nobody gets hurt.</p>
+      <p class="lede">Wisp is a 120-gram drone that rides on your back, launches in under a second and takes away an attacker's aim with light. Nobody gets hurt.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="scenario.html">Watch the scenario <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h12M9.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-        <a class="btn" href="#system">Explore the system</a>
+        <a class="btn btn-primary" href="#system">Explore the system <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h12M9.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        <a class="btn" href="scenario.html">Watch the previs</a>
       </div>
     </div>
     <div class="wrap hero-stats">
@@ -53,7 +55,7 @@
         <div><dt>Active flight</dt><dd>4 min</dd></div>
       </dl>
     </div>
-    <span class="hero-tag"><i class="live-dot"></i>W1 prototype &middot; live render</span>
+    <span class="hero-tag">W1 prototype &middot; path-traced render</span>
   </section>
 
   <section class="section" id="why">
@@ -99,47 +101,48 @@
       <div class="head">
         <span class="eyebrow">02 &middot; The system</span>
         <h2 class="h2">Worn like nothing. Ready in a second.</h2>
-        <p class="lede">Three parts that work as one: a harness you forget you are wearing, a drone the size of your palm, and flight software that keeps light in the attacker's eyes while you leave.</p>
+        <p class="lede">Three parts that work as one: a harness you forget you are wearing, a drone the size of your hand, and flight software that keeps light in the attacker's eyes while you leave.</p>
       </div>
 
       <article class="product reveal">
-        <div class="product-media" data-live>
-          <canvas data-3d="harness" data-view="back" data-poster="assets/img/back.jpg" aria-label="Live 3D: the Silk harness on a dress form, with Wisp docked between the shoulder blades"></canvas>
-          <span class="media-tag"><i class="live-dot"></i>Silk harness &middot; live 3D</span>
+        <div class="product-media">
+          <img src="assets/img/r/harness_back.webp" alt="The Silk harness on a dress form: two shoulder straps and a carbon back plate with Wisp docked on it" loading="lazy" width="1800" height="1200">
+          <span class="media-tag">Silk harness &middot; W1</span>
         </div>
         <div class="product-copy">
           <span class="eyebrow">Silk</span>
-          <h3 class="h2">Eight strips. No backpack.</h3>
-          <p class="body">Silk is a harness of eight flat strips, 11 mm wide and under a millimeter thick, that spread across the back like a spider's legs. Two run over the shoulders, two under the arms, two around the ribs and two down the spine. They meet at a nest between the shoulder blades, where Wisp docks and charges.</p>
-          <p class="body">The whole harness weighs 38 grams and sits flat enough to forget.</p>
+          <h3 class="h2">Two straps. Nothing else.</h3>
+          <p class="body">Silk is worn like the lightest backpack you own: two padded straps over the shoulders, a sternum strap across the chest and a thin carbon plate between the shoulder blades. Wisp docks flat on the plate and charges there.</p>
+          <p class="body">The trigger is the clasp on the sternum strap, right where your hand already is.</p>
           <ul class="chips">
-            <li class="chip">38 g</li><li class="chip">8 strips</li><li class="chip">0.8 mm thick</li><li class="chip">Chest clasp trigger</li><li class="chip">Charges while worn</li>
+            <li class="chip">150 g</li><li class="chip">Carbon back plate</li><li class="chip">38 mm webbing</li><li class="chip">Chest clasp trigger</li><li class="chip">Charges while worn</li>
           </ul>
         </div>
       </article>
 
       <article class="product flip reveal">
-        <div class="product-media" data-live>
-          <canvas data-3d="turntable" data-poster="assets/img/close.jpg" aria-label="Live 3D: the Wisp drone turning slowly with its rotors spinning"></canvas>
-          <span class="media-tag"><i class="live-dot"></i>Wisp &middot; live 3D</span>
+        <div class="product-media spin" data-spin="assets/img/spin/" data-frames="48" tabindex="0" role="img" aria-label="Wisp turning slowly. Drag, or use the arrow keys, to rotate it.">
+          <img class="spin-poster" src="assets/img/spin/000.webp" alt="" loading="lazy" width="1000" height="750">
+          <canvas></canvas>
+          <span class="media-tag">Wisp &middot; drag to rotate</span>
         </div>
         <div class="product-copy">
           <span class="eyebrow">Wisp</span>
           <h3 class="h2">A light that flies.</h3>
-          <p class="body">Four guarded, ducted rotors in a 118 mm airframe. Two high-output emitters behind a sapphire visor. A camera and a range sensor that keep the beam on the eyes from half a meter away.</p>
+          <p class="body">Four guarded rotors in one molded frame, 132 mm across. Two high-output emitters and a camera behind a single smoked sapphire window. Machined motor bells, molded grilles above and below every blade.</p>
           <p class="body">Wisp can take a bump from a hand or a wall and keep flying.</p>
           <ul class="chips">
-            <li class="chip">120 g</li><li class="chip">118 mm span</li><li class="chip">1,500 lm</li><li class="chip">4 min active flight</li>
+            <li class="chip">120 g</li><li class="chip">132 mm</li><li class="chip">1,500 lm</li><li class="chip">4 min active flight</li>
           </ul>
         </div>
       </article>
 
-      <article class="product reveal" data-patterns>
-        <div class="product-media" data-live>
-          <canvas data-3d="patterns" data-poster="assets/img/halo.jpg" aria-label="Live 3D: Wisp flying a pattern around a head and lighting the eyes"></canvas>
-          <span class="media-tag"><i class="live-dot"></i>Orbit &middot; live 3D</span>
+      <article class="product reveal">
+        <div class="product-media plot" data-plot>
+          <canvas aria-label="Top-down plot of Wisp's current flight pattern around a head"></canvas>
+          <span class="media-tag">Orbit &middot; top-down</span>
           <div class="viz-ui">
-            <div class="viz-readout"><strong data-readout-name>Orbit</strong></div>
+            <div class="viz-readout"><strong data-readout-name>Orbit</strong><span data-readout-note>Tight circle at eye level, half a meter out.</span></div>
             <div class="pattern-tabs" role="group" aria-label="Flight pattern">
               <button type="button" data-pattern="orbit" aria-pressed="true">Orbit</button>
               <button type="button" data-pattern="figure8" aria-pressed="false">Figure-8</button>
@@ -166,29 +169,29 @@
       <div class="head">
         <span class="eyebrow">03 &middot; How it works</span>
         <h2 class="h2">One press. Three seconds. Walk away.</h2>
-        <p class="lede">Frames from the scenario film, rendered in real time from the same models as the product.</p>
+        <p class="lede">Three seconds from the press to light on the attacker's eyes, then the walk away.</p>
       </div>
       <ol class="steps">
         <li class="step-card reveal">
-          <figure><img src="assets/img/arm.jpg" alt="The wearer presses the clasp on their chest while facing the attacker" loading="lazy" width="1600" height="1000"></figure>
+          <figure><img src="assets/img/r/clasp-s.webp" alt="The trigger clasp on the sternum strap, its ring lit" loading="lazy" width="960" height="600"></figure>
           <span class="step-num">01 &middot; 0.0 s</span>
           <h3>Press</h3>
           <p>A firm press on the chest clasp arms and releases Wisp. No phone, no app, no looking down.</p>
         </li>
         <li class="step-card reveal" style="--d: 1">
-          <figure><img src="assets/img/launch.jpg" alt="Wisp lifts off the harness and climbs over the wearer's shoulder" loading="lazy" width="1600" height="1000"></figure>
+          <figure><img src="assets/img/r/launch-s.webp" alt="Wisp lifting off the back plate of the harness" loading="lazy" width="960" height="600"></figure>
           <span class="step-num">02 &middot; 0.7 s</span>
           <h3>Launch</h3>
-          <p>The nest unlatches and Wisp lifts off the back, climbing over the shoulder and away from the wearer.</p>
+          <p>The dock lets go and Wisp lifts off the back, climbing over the shoulder and away from the wearer.</p>
         </li>
         <li class="step-card reveal" style="--d: 2">
-          <figure><img src="assets/img/lock.jpg" alt="The view from Wisp's camera, locked on the attacker's face" loading="lazy" width="1600" height="1000"></figure>
+          <figure><img src="assets/img/r/front-s.webp" alt="Wisp from the front with both emitters lit behind the sapphire window" loading="lazy" width="960" height="600"></figure>
           <span class="step-num">03 &middot; 2.6 s</span>
           <h3>Lock</h3>
-          <p>The camera finds the face turned toward the wearer and the beam lands on the eyes. Aiming gets very hard.</p>
+          <p>The camera finds the face turned toward the wearer and both emitters land on the eyes. Aiming gets very hard.</p>
         </li>
         <li class="step-card reveal" style="--d: 3">
-          <figure><img src="assets/img/orbit.jpg" alt="Wisp circles the attacker's head at arm's length, light on their eyes" loading="lazy" width="1600" height="1000"></figure>
+          <figure><img src="assets/img/r/flight-s.webp" alt="Wisp hovering with its rotors spinning and its beams on" loading="lazy" width="960" height="600"></figure>
           <span class="step-num">04 &middot; 3.2 s</span>
           <h3>Orbit</h3>
           <p>Wisp circles the head at arm's length and keeps changing its path, so it can't be tracked or swatted. The wearer backs away.</p>
@@ -196,7 +199,7 @@
       </ol>
       <div class="steps-foot">
         <p class="spec-note">Timings are design targets, measured from the press.</p>
-        <a class="link" href="scenario.html">Watch the full scenario <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h12M9.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        <a class="link" href="scenario.html">Watch the previs <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h12M9.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
       </div>
     </div>
   </section>
@@ -208,17 +211,17 @@
         <h2 class="h2">Seven parts. Nothing extra.</h2>
         <p class="body">Scroll to take Wisp apart.</p>
         <ol class="parts">
-          <li class="on"><b>01</b><strong>Canopy</strong><span>Glass-filled nylon shell with a sapphire visor over the optics. Vents over the compute board pull air through the body in flight.</span></li>
-          <li><b>02</b><strong>Optics</strong><span>Two 750-lumen emitters with focusing lenses, a wide global-shutter camera and a time-of-flight range sensor, all looking the same way.</span></li>
-          <li><b>03</b><strong>Compute</strong><span>A vision processor finds faces and flies the aircraft on board. Wisp needs no phone and no network to work.</span></li>
-          <li><b>04</b><strong>Rotors</strong><span>Four 45 mm five-blade rotors, each inside a guarded duct. A hand can hit Wisp without touching a blade.</span></li>
-          <li><b>05</b><strong>Airframe</strong><span>One-piece carbon composite frame. The ducts are the structure, which is how the whole aircraft stays at 120 grams.</span></li>
-          <li><b>06</b><strong>Power</strong><span>A two-cell 550 mAh pack sized for four minutes at full light, with a reserve to come home. It charges through the harness.</span></li>
-          <li><b>07</b><strong>Dock latch</strong><span>Magnets and pogo contacts. Holds through a sprint, lets go 40 milliseconds after the clasp is pressed.</span></li>
+          <li class="on"><b>01</b><strong>Canopy</strong><span>A crowned shell in glass-filled nylon. The ring on top shows charge and state at a glance.</span></li>
+          <li><b>02</b><strong>Optics</strong><span>Two 750-lumen emitters in polished reflectors and a global-shutter camera between them, behind one smoked sapphire window.</span></li>
+          <li><b>03</b><strong>Compute</strong><span>A vision processor finds faces and flies the aircraft on board. Wisp needs no phone and no network.</span></li>
+          <li><b>04</b><strong>Rotors</strong><span>Four 45 mm five-blade rotors on outrunner motors with machined aluminum bells.</span></li>
+          <li><b>05</b><strong>Guards</strong><span>Molded grilles above and below every rotor. A finger can't reach a blade.</span></li>
+          <li><b>06</b><strong>Airframe</strong><span>One molded frame. The ducts are the structure, which is how the whole aircraft stays at 120 grams.</span></li>
+          <li><b>07</b><strong>Power and dock</strong><span>A two-cell 550 mAh pack. Magnets and gold pogo contacts hold Wisp to the harness and charge it there.</span></li>
         </ol>
       </div>
-      <div class="inside-view" data-live>
-        <canvas class="inside-canvas" data-3d="explode" aria-label="Live 3D: an exploded view of Wisp that follows your scrolling"></canvas>
+      <div class="inside-view">
+        <canvas class="inside-canvas" data-seq="assets/img/explode/" data-frames="40" data-labels="assets/img/explode/labels.json" aria-label="Wisp coming apart into its parts as you scroll"></canvas>
         <div class="labels" aria-hidden="true"></div>
       </div>
       <div class="inside-progress" aria-hidden="true">01 / 07</div>
@@ -237,10 +240,10 @@
         <div class="spec-col">
           <h3>Wisp <small>Drone</small></h3>
           <dl>
-            <div><dt>Span</dt><dd>118 mm</dd></div>
-            <div><dt>Height</dt><dd>35 mm</dd></div>
+            <div><dt>Size</dt><dd>132 &times; 132 &times; 30 mm</dd></div>
+            <div><dt>Wheelbase</dt><dd>110 mm</dd></div>
             <div><dt>Weight</dt><dd>120 g</dd></div>
-            <div><dt>Rotors</dt><dd>4 &times; 45 mm, ducted and guarded</dd></div>
+            <div><dt>Rotors</dt><dd>4 &times; 45 mm, five blades, guarded</dd></div>
             <div><dt>Light</dt><dd>1,500 lm peak, two emitters</dd></div>
             <div><dt>Battery</dt><dd>2S 550 mAh, 4.1 Wh</dd></div>
             <div><dt>Active flight</dt><dd>4 min at full light</dd></div>
@@ -251,11 +254,11 @@
         <div class="spec-col">
           <h3>Silk <small>Harness</small></h3>
           <dl>
-            <div><dt>Weight</dt><dd>38 g</dd></div>
-            <div><dt>Strips</dt><dd>8 &times; 11 mm, 0.8 mm thick</dd></div>
-            <div><dt>Material</dt><dd>Aramid webbing, carbon ribs</dd></div>
+            <div><dt>Weight</dt><dd>150 g</dd></div>
+            <div><dt>Straps</dt><dd>Two 38 mm shoulder straps, sternum strap</dd></div>
+            <div><dt>Material</dt><dd>Nylon webbing, carbon back plate</dd></div>
             <div><dt>Trigger</dt><dd>Two-stage chest clasp</dd></div>
-            <div><dt>Charging</dt><dd>USB-C at the nest</dd></div>
+            <div><dt>Charging</dt><dd>USB-C at the back plate</dd></div>
             <div><dt>Standby</dt><dd>5 days docked</dd></div>
             <div><dt>Fit</dt><dd>XS to XXL, adjustable</dd></div>
           </dl>
@@ -330,12 +333,12 @@
   </section>
 
   <section class="film">
-    <img src="assets/img/escape.jpg" alt="" loading="lazy" width="1600" height="1000">
+    <img src="assets/img/r/top.webp" alt="" loading="lazy" width="1800" height="1125">
     <div class="wrap">
-      <span class="eyebrow">Scenario film &middot; 24 s &middot; real-time 3D</span>
-      <h2 class="h2">Watch it play out.</h2>
-      <p class="lede">A rendered encounter on a wet street at night. Scrub it, slow it down, or ride along in the drone's camera.</p>
-      <a class="btn btn-primary" href="scenario.html">Watch the scenario <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h12M9.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+      <span class="eyebrow">Previs &middot; 24 s &middot; real-time 3D</span>
+      <h2 class="h2">Watch the encounter.</h2>
+      <p class="lede">Our real-time previs of the moment Wisp is built for. Scrub it, slow it down, or ride along in the drone's camera.</p>
+      <a class="btn btn-primary" href="scenario.html">Watch the previs <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h12M9.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
     </div>
   </section>
 
@@ -362,7 +365,7 @@
           <li><a href="#system">Silk harness</a></li>
           <li><a href="#inside">Wisp drone</a></li>
           <li><a href="technology.html#orbit">Orbit autonomy</a></li>
-          <li><a href="scenario.html">Scenario film</a></li>
+          <li><a href="scenario.html">Previs film</a></li>
         </ul>
       </div>
       <div>

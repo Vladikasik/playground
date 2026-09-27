@@ -631,13 +631,13 @@ function ribbonGeometry(pts, nrm, width, thick, taperStart = 0, taperEnd = 0.15)
   g.setIndex(idx);
   return g;
 }
-// The eight legs, left side (mirrored for the right). Rough chest-space points; they get projected onto the torso.
-const LEGS = [
-  { pts: [[0.022, 0.212, -0.11], [0.058, 0.246, -0.09], [0.086, 0.262, -0.05], [0.09, 0.272, -0.012], [0.092, 0.268, 0.03], [0.096, 0.24, 0.075], [0.1, 0.2, 0.1], [0.102, 0.158, 0.105]], taper: 0.2 },
-  { pts: [[0.03, 0.172, -0.11], [0.095, 0.158, -0.09], [0.148, 0.138, -0.035], [0.152, 0.122, 0.03], [0.11, 0.106, 0.085], [0.05, 0.1, 0.104], [0.019, 0.1, 0.106]], taper: 0 },
-  { pts: [[0.026, 0.13, -0.11], [0.095, 0.07, -0.095], [0.15, 0.028, -0.03], [0.15, 0.004, 0.045], [0.11, -0.008, 0.088], [0.078, -0.014, 0.1]], taper: 0.22 },
-  { pts: [[0.012, 0.122, -0.11], [0.026, 0.07, -0.108], [0.043, 0.005, -0.103], [0.055, -0.05, -0.1]], taper: 0.28 },
-];
+// Two padded shoulder straps that return under the arms like a backpack, a sternum strap with the
+// trigger clasp, and a contoured back plate. Rough chest-space points (x = left, y = up, z = forward);
+// they get projected onto the torso. Left side, mirrored for the right.
+const STRAP = [[0.04, 0.236, -0.106], [0.074, 0.262, -0.062], [0.09, 0.276, -0.012], [0.093, 0.268, 0.036], [0.09, 0.235, 0.086], [0.079, 0.18, 0.106], [0.072, 0.12, 0.11], [0.08, 0.06, 0.108], [0.1, 0.03, 0.096]];
+const LOWER = [[0.102, 0.028, 0.094], [0.14, 0.02, 0.062], [0.16, 0.032, -0.008], [0.15, 0.052, -0.068], [0.102, 0.08, -0.1], [0.052, 0.094, -0.108]];
+const STERNUM = [[-0.078, 0.1, 0.11], [-0.04, 0.1, 0.118], [0, 0.1, 0.12], [0.04, 0.1, 0.118], [0.078, 0.1, 0.11]];
+const PLATE = { cy: 0.168, hw: 0.064, hh: 0.08, r: 0.022, off: 0.0015, t: 0.007 };
 function sampleOnTorso(rough, off, samples) {
   const ctrl = rough.map(p => onTorso(V3(...p), off).p);
   const curve = new THREE.CatmullRomCurve3(ctrl, false, 'centripetal');
@@ -649,15 +649,47 @@ function sampleOnTorso(rough, off, samples) {
   }
   return { pts, nrm };
 }
-function nestShape() {
-  const s = new THREE.Shape();
-  s.moveTo(0, 0.047);
-  s.bezierCurveTo(0.012, 0.047, 0.03, 0.03, 0.033, 0.01);
-  s.bezierCurveTo(0.035, -0.006, 0.026, -0.032, 0.012, -0.046);
-  s.quadraticCurveTo(0, -0.055, -0.012, -0.046);
-  s.bezierCurveTo(-0.026, -0.032, -0.035, -0.006, -0.033, 0.01);
-  s.bezierCurveTo(-0.03, 0.03, -0.012, 0.047, 0, 0.047);
-  return s;
+// a plate that follows the back: a grid over a rounded rectangle, projected onto the torso, with thickness
+function backPlateGeometry({ cy, hw, hh, r, off, t }, nu = 26, nv = 32) {
+  const inner = [], outer = [];
+  for (let j = 0; j <= nv; j++) {
+    for (let i = 0; i <= nu; i++) {
+      let x = (i / nu * 2 - 1) * hw, y = (j / nv * 2 - 1) * hh;
+      const qx = Math.abs(x) - (hw - r), qy = Math.abs(y) - (hh - r);
+      if (qx > 0 && qy > 0) {
+        const d = Math.hypot(qx, qy);
+        if (d > r) { x = Math.sign(x) * (hw - r + qx * r / d); y = Math.sign(y) * (hh - r + qy * r / d); }
+      }
+      const zb = -torsoSurfZ(x, y + cy);
+      inner.push(V3(x, y + cy, zb - off));
+      outer.push(V3(x, y + cy, zb - off - t));
+    }
+  }
+  const pos = [], idx = [];
+  const push = v => { pos.push(v.x, v.y, v.z); return pos.length / 3 - 1; };
+  const W = nu + 1;
+  const io = inner.map(push), oo = outer.map(push);
+  for (let j = 0; j < nv; j++) {
+    for (let i = 0; i < nu; i++) {
+      const a = j * W + i, b = a + 1, c = a + W, d = c + 1;
+      idx.push(oo[a], oo[c], oo[b], oo[b], oo[c], oo[d]);
+      idx.push(io[a], io[b], io[c], io[b], io[d], io[c]);
+    }
+  }
+  const ring = [];
+  for (let i = 0; i <= nu; i++) ring.push(i);
+  for (let j = 1; j <= nv; j++) ring.push(j * W + nu);
+  for (let i = nu - 1; i >= 0; i--) ring.push(nv * W + i);
+  for (let j = nv - 1; j >= 1; j--) ring.push(j * W);
+  for (let k = 0; k < ring.length; k++) {
+    const a = ring[k], b = ring[(k + 1) % ring.length];
+    idx.push(io[a], oo[a], io[b], io[b], oo[a], oo[b]);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setIndex(idx);
+  g.computeVertexNormals();
+  return g;
 }
 
 // chest: a Group in chest space (the scenario's person chest, or the mannequin's)
@@ -666,6 +698,8 @@ export function createSilk(chest, { shadows = true } = {}) {
   const led = new THREE.MeshBasicMaterial({ color: 0x9fd8ff });
   const nestLed = new THREE.MeshBasicMaterial({ color: 0x9fd8ff });
   const buttonLed = new THREE.MeshBasicMaterial({ color: 0x9fd8ff });
+  const plateMat = M.nest.clone();
+  plateMat.side = THREE.DoubleSide;
   const group = new THREE.Group();
   group.name = 'Silk';
   chest.add(group);
@@ -677,49 +711,48 @@ export function createSilk(chest, { shadows = true } = {}) {
     parent.add(m);
     return m;
   };
-  // legs
+  // straps
   for (const side of [1, -1]) {
-    for (const leg of LEGS) {
-      const rough = leg.pts.map(([x, y, z]) => [x * side, y, z]);
-      const { pts, nrm } = sampleOnTorso(rough, 0.0042, 64);
-      add(group, ribbonGeometry(pts, nrm, 0.0165, 0.0026, 0, leg.taper), M.strip);
-      const lit = pts.map((p, i) => p.clone().addScaledVector(nrm[i], 0.0017));
-      add(group, ribbonGeometry(lit, nrm, 0.0028, 0.0007, 0.04, leg.taper ? leg.taper + 0.05 : 0.06), led, null, false);
-    }
+    const mirror = pts => pts.map(([x, y, z]) => [x * side, y, z]);
+    const a = sampleOnTorso(mirror(STRAP), 0.0022, 90);
+    add(group, ribbonGeometry(a.pts, a.nrm, 0.038, 0.0034, 0, 0), M.strip);
+    const b = sampleOnTorso(mirror(LOWER), 0.0018, 70);
+    add(group, ribbonGeometry(b.pts, b.nrm, 0.025, 0.002, 0, 0), M.strip);
+    // ladder lock where the lower strap feeds into the shoulder strap
+    const k = a.pts.length - 6, q = a.pts[k], n = a.nrm[k];
+    const lock = add(group, new RoundedBoxGeometry(0.046, 0.018, 0.003, 2, 0.0012), M.metalDark, q.clone().addScaledVector(n, 0.0045));
+    lock.lookAt(q.clone().add(n));
   }
-  // the nest between the shoulder blades
-  const backZ = -torsoSurfZ(0, 0.17);
+  const st = sampleOnTorso(STERNUM, 0.0052, 50);
+  add(group, ribbonGeometry(st.pts, st.nrm, 0.02, 0.0018, 0, 0), M.strip);
+  // the back plate, with a lit ring around the dock
+  add(group, backPlateGeometry(PLATE), plateMat);
+  const backZ = -torsoSurfZ(0, PLATE.cy) - PLATE.off - PLATE.t;
   const nest = new THREE.Group();
-  nest.position.set(0, 0.17, backZ - 0.0012);
+  nest.position.set(0, PLATE.cy, backZ);
   group.add(nest);
-  const nestGeo = new THREE.ExtrudeGeometry(nestShape(), { depth: 0.0036, bevelEnabled: true, bevelThickness: 0.0014, bevelSize: 0.0014, bevelSegments: 3, curveSegments: 32 });
-  nestGeo.rotateY(Math.PI);
-  add(nest, nestGeo, M.nest);
-  add(nest, new THREE.TorusGeometry(0.0118, 0.0011, 8, 40), M.metalDark, V3(0, 0, -0.0055));
-  add(nest, new THREE.CylinderGeometry(0.0102, 0.0102, 0.0012, 40), M.metalDark, V3(0, 0, -0.0052)).rotation.x = Math.PI / 2;
-  for (let k = 0; k < 4; k++) {
-    const a = k * TAU / 4 + Math.PI / 4;
-    const pin = add(nest, new THREE.CylinderGeometry(0.0012, 0.0012, 0.0012, 12), M.gold, V3(Math.cos(a) * 0.0058, Math.sin(a) * 0.0058, -0.0062), false);
+  add(nest, new THREE.TorusGeometry(0.03, 0.0009, 8, 64), led, V3(0, 0, -0.0004), false);
+  add(nest, new THREE.SphereGeometry(0.0016, 10, 8), nestLed, V3(0, PLATE.hh - 0.012, -0.0006), false);
+  for (let k = 0; k < 3; k++) {
+    const pin = add(nest, new THREE.CylinderGeometry(0.0012, 0.0012, 0.0012, 12), M.gold, V3((k - 1) * 0.0034, 0, -0.0005), false);
     pin.rotation.x = Math.PI / 2;
   }
-  add(nest, new THREE.SphereGeometry(0.0016, 10, 8), nestLed, V3(0, 0.036, -0.0048), false);
-  for (const s of [-1, 1]) add(nest, new RoundedBoxGeometry(0.004, 0.018, 0.0022, 1, 0.0009), M.shellMatte, V3(s * 0.024, -0.012, -0.005));
-  // where the drone clips on: its belly on the nest, top facing out, nose up
+  // where the drone clips on: its belly on the plate, top facing out, nose up
   const dock = new THREE.Object3D();
-  dock.position.set(0, 0.17, backZ - 0.0062 - 0.0181);
+  dock.position.set(0, PLATE.cy, backZ - 0.0181);
   dock.rotation.x = -Math.PI / 2;
   group.add(dock);
-  // chest clasp: the trigger
-  const cs = onTorso(V3(0, 0.1, 0.12), 0.0052);
+  // the trigger clasp on the sternum strap
+  const cs = onTorso(V3(0, 0.1, 0.12), 0.0062);
   const clasp = new THREE.Group();
   clasp.position.copy(cs.p);
   clasp.lookAt(cs.p.clone().add(cs.n));
   group.add(clasp);
-  add(clasp, new RoundedBoxGeometry(0.036, 0.021, 0.0075, 3, 0.003), M.nest);
-  add(clasp, new THREE.CylinderGeometry(0.0066, 0.007, 0.0028, 28), M.shellMatte, V3(0, 0, 0.0048)).rotation.x = Math.PI / 2;
-  add(clasp, new THREE.TorusGeometry(0.0077, 0.0008, 8, 32), buttonLed, V3(0, 0, 0.0046), false);
+  add(clasp, new RoundedBoxGeometry(0.046, 0.028, 0.0085, 3, 0.0036), M.metalDark);
+  add(clasp, new THREE.CylinderGeometry(0.0078, 0.0082, 0.0028, 32), M.shellMatte, V3(0, 0, 0.0052)).rotation.x = Math.PI / 2;
+  add(clasp, new THREE.TorusGeometry(0.0056, 0.0006, 8, 32), buttonLed, V3(0, 0, 0.0067), false);
   const button = new THREE.Object3D();
-  button.position.set(0, 0, 0.0065);
+  button.position.set(0, 0, 0.0068);
   clasp.add(button);
   return { group, nest, dock, clasp, button, led, nestLed, buttonLed };
 }
@@ -794,35 +827,4 @@ export function createHeadBust({ color = 0x9aa0a8 } = {}) {
 /* Orbit autonomy flight patterns                                      */
 /* ------------------------------------------------------------------ */
 // Offsets in the head frame: x = the person's left, y = up, z = where the face points. t in seconds.
-const DART = [[0.12, 0.05, 0.4], [-0.22, 0.12, 0.36], [0.46, 0.0, 0.16], [0.0, 0.3, 0.34], [-0.46, 0.04, 0.14], [0.06, -0.04, 0.42]];
-export const PATTERNS = {
-  orbit: {
-    name: 'Orbit', note: 'Tight circle at eye level, half a meter out.',
-    f(t, o) { const a = 0.35 + t * TAU / 2.3, R = 0.5 + 0.04 * Math.sin(1.3 * t); return o.set(R * Math.sin(a), 0.08 + 0.05 * Math.sin(2.1 * t + 0.8), R * Math.cos(a)); },
-  },
-  figure8: {
-    name: 'Figure-8', note: 'Crosses the line of sight twice a cycle.',
-    f(t, o) { const w = TAU / 2.4; return o.set(0.36 * Math.sin(w * t), 0.1 + 0.11 * Math.sin(2 * w * t), 0.42 + 0.06 * Math.cos(2 * w * t)); },
-  },
-  dart: {
-    name: 'Dart', note: 'Holds, then jumps to a new angle. Hard to track, harder to swat.',
-    f(t, o) {
-      const period = 0.72, i = Math.floor(t / period), u = (t - i * period) / period;
-      const a = DART[i % DART.length], b = DART[(i + 1) % DART.length];
-      const k = u < 0.55 ? 0 : smooth((u - 0.55) / 0.45);
-      return o.set(a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k);
-    },
-  },
-  halo: {
-    name: 'Halo', note: 'Circles overhead and lights the eyes from above.',
-    f(t, o) { const a = t * TAU / 1.7; return o.set(0.3 * Math.sin(a), 0.36 + 0.03 * Math.sin(3 * t), 0.3 * Math.cos(a)); },
-  },
-  spiral: {
-    name: 'Spiral', note: 'Reverses direction and sweeps up and down.',
-    f(t, o) { const a = -t * TAU / 2.2; return o.set(0.55 * Math.sin(a), -0.02 + 0.26 * (0.5 - 0.5 * Math.cos(1.5 * t)), 0.55 * Math.cos(a)); },
-  },
-  wide: {
-    name: 'Wide orbit', note: 'Backs off to 0.8 m and varies its speed.',
-    f(t, o) { const a = t * TAU / 3.2 + 0.4 * Math.sin(0.9 * t); return o.set(0.78 * Math.sin(a), 0.12 + 0.06 * Math.sin(1.7 * t), 0.78 * Math.cos(a)); },
-  },
-};
+export { PATTERNS } from './patterns.js';
