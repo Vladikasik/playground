@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wisp Safety</title>
+<meta name="description" content="The rules Wisp is built to: no payload, light within limits, guarded rotors, wearer control and private records.">
+<meta name="theme-color" content="#050608">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='16' rx='14' ry='5.6' transform='rotate(-22 16 16)' fill='none' stroke='%23a6dbff' stroke-width='2.4'/%3E%3Ccircle cx='16' cy='16' r='4.4' fill='%23a6dbff'/%3E%3Ccircle cx='20.7' cy='8.9' r='2.2' fill='%23a6dbff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module" src="assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" id="top">
+  <div class="wrap nav-inner">
+    <a class="logo" href="./" aria-label="Wisp home"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="14" ry="5.6" transform="rotate(-22 16 16)" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="16" r="4.4" fill="currentColor"/><circle cx="20.7" cy="8.9" r="2.2" fill="currentColor"/></svg><span>WISP</span></a>
+    <nav aria-label="Primary"><ul class="nav-links"><li><a href="./#system">System</a></li><li><a href="technology.html">Technology</a></li><li><a href="safety.html" aria-current="page">Safety</a></li><li><a href="company.html">Company</a></li></ul></nav>
+    <a class="btn btn-sm nav-cta" href="scenario.html">Watch the scenario <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h12M9.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    <button type="button" class="menu-btn" id="menuOpen" aria-expanded="false" aria-controls="menu">Menu</button>
+  </div>
+</header>
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+  <div class="menu-top">
+    <a class="logo" href="./" aria-label="Wisp home"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="14" ry="5.6" transform="rotate(-22 16 16)" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="16" r="4.4" fill="currentColor"/><circle cx="20.7" cy="8.9" r="2.2" fill="currentColor"/></svg><span>WISP</span></a>
+    <button type="button" class="menu-btn" id="menuClose">Close</button>
+  </div>
+  <ul class="menu-links"><li><a href="./#system">System <span>01</span></a></li><li><a href="technology.html">Technology <span>02</span></a></li><li><a href="safety.html" aria-current="page">Safety <span>03</span></a></li><li><a href="company.html">Company <span>04</span></a></li></ul>
+  <a class="btn btn-primary" href="scenario.html">Watch the scenario <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h12M9.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+</div>
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Safety</span>
+      <h1 class="h1">Nobody gets hurt.</h1>
+      <p class="lede">Including the person holding the weapon. Wisp is a tool for getting away, and every design decision starts there.</p>
+    </div>
+  </section>
+  <figure class="bleed">
+    <img src="assets/img/halo.jpg" alt="Wisp circles above the attacker's head, lighting the eyes from above" width="1600" height="1000">
+    <figcaption>Halo pattern &middot; 11 s after the press</figcaption>
+  </figure>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">01 &middot; Commitments</span>
+        <h2 class="h2">Six rules we build to.</h2>
+        <p class="lede">Written into the hardware where possible, and into the software where not.</p>
+      </div>
+      <ol class="uses">
+        <li class="reveal"><b>01</b><h3>No payload. Ever.</h3><p>Wisp carries no projectile, spray, blade or charge, and the airframe has no mount that could take one.</p></li>
+        <li class="reveal"><b>02</b><h3>Light within limits.</h3><p>Peak output is set for the closest distance Wisp flies to a face, and the beam stays on only while the camera sees a face at a safe range.</p></li>
+        <li class="reveal"><b>03</b><h3>Gentle by default.</h3><p>The default beam is steady, with a slow pulse below 3 Hz. Fast strobe is a separate mode that runs in short bursts and is off out of the box.</p></li>
+        <li class="reveal"><b>04</b><h3>Guarded rotors.</h3><p>Every rotor sits in a duct with guards on both faces, and the rotors stop the moment Wisp is grabbed or tumbles.</p></li>
+        <li class="reveal"><b>05</b><h3>The wearer decides.</h3><p>Nothing happens without a deliberate two-stage press on the clasp, and a two-second hold ends a deployment at any time.</p></li>
+        <li class="reveal"><b>06</b><h3>A record, kept private.</h3><p>Each deployment is logged with time, place, flight path and a short clip, encrypted on the device and shared only by the wearer.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">02 &middot; How we test</span>
+        <h2 class="h2">Measured, then measured again.</h2>
+        <p class="lede">Safety claims are only as good as the tests behind them. Ours run in three stages, and each one has to pass before the next begins.</p>
+      </div>
+      <ol class="timeline reveal">
+        <li class="now"><b>Now &middot; Bench</b><h3>Light and flight</h3><p>Photometry at every pattern distance, endurance at full light, and drop, grab and swat tests on flying prototypes.</p></li>
+        <li><b>Next &middot; Field</b><h3>Supervised trials</h3><p>Trials with professional security teams in controlled settings, with every deployment reviewed.</p></li>
+        <li><b>Then &middot; Independent</b><h3>Outside review</h3><p>Third-party testing of eye safety, electrical safety and flight safety before Wisp is offered to anyone.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">03 &middot; Questions</span>
+        <h2 class="h2">The hard ones.</h2>
+      </div>
+      <div class="faq">
+        <details><summary>Is Wisp a weapon?</summary><p>No. It carries nothing that can injure anyone. It is a bright light that flies, designed to make aiming very hard for long enough to leave.</p></details>
+        <details><summary>Can the light damage someone's eyes?</summary><p>It is designed not to. Output is limited for the closest distance Wisp flies to a face, and the beam turns off whenever the camera loses the face or the range gets too short. Independent eye-safety testing comes before any sale.</p></details>
+        <details><summary>What about people with photosensitive epilepsy?</summary><p>The default light is steady with a slow pulse, well below the flash rates linked to seizures. The fast strobe is a separate mode the wearer has to turn on, and it runs only in short bursts.</p></details>
+        <details><summary>Could someone use Wisp to harass people?</summary><p>It launches only from its own harness and only after a deliberate press. It can't be flown like a hobby drone, carries nothing harmful and logs every deployment.</p></details>
+        <details><summary>What if someone grabs it or knocks it down?</summary><p>The rotors stop the moment it is held or tumbles. It is built to survive a fall, and it pairs only with its own harness.</p></details>
+        <details><summary>Is it legal to carry and fly?</summary><p>Rules on drones and self-defense tools vary by country and city. We are working with regulators ahead of any sale, and Wisp will only be offered where it can be carried and used legally.</p></details>
+        <details><summary>Does it record me or bystanders?</summary><p>Wisp records only while deployed. Clips stay encrypted on the device and are never uploaded unless the wearer chooses to share them.</p></details>
+        <details><summary>When can I get one?</summary><p>Not yet. Wisp is in development and not for sale. Prototypes go to professional security teams first.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a class="logo" href="./" aria-label="Wisp home"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="14" ry="5.6" transform="rotate(-22 16 16)" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="16" r="4.4" fill="currentColor"/><circle cx="20.7" cy="8.9" r="2.2" fill="currentColor"/></svg><span>WISP</span></a>
+        <p>Personal protection that takes away the aim, not the person.</p>
+      </div>
+      <div>
+        <h4>System</h4>
+        <ul>
+          <li><a href="./#system">Silk harness</a></li>
+          <li><a href="./#inside">Wisp drone</a></li>
+          <li><a href="technology.html#orbit">Orbit autonomy</a></li>
+          <li><a href="scenario.html">Scenario film</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="company.html">About</a></li>
+          <li><a href="company.html#careers">Careers</a></li>
+          <li><a href="safety.html">Safety</a></li>
+          <li><a href="technology.html">Technology</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@wisp.example">hello@wisp.example</a></li>
+          <li><a href="mailto:press@wisp.example">press@wisp.example</a></li>
+          <li><a href="mailto:careers@wisp.example">careers@wisp.example</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Wisp is a concept in development. Specifications are design targets. Not for sale.</span>
+      <span>&copy; <span data-year>2026</span> Wisp Systems</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
