@@ -471,3 +471,4 @@ h1, h2, h3, h4 {
   .hero-photo .hero-media { position: relative; display: block; height: 58svh; min-height: 340px; }
   .hero-photo .hero-shade { height: 58svh; min-height: 340px; }
 }
+.product.dock { margin-top: clamp(56px, 7vw, 100px); }
