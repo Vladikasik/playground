@@ -11,7 +11,7 @@ import sys
 import bpy
 import numpy as np
 
-QUALITY = 84
+QUALITY = 94
 
 
 def load(path):
@@ -92,7 +92,7 @@ def main():
         for name in sorted(os.listdir(sdir)):
             if name.endswith('.jpg'):
                 arr = pixels(load(os.path.join(sdir, name)))
-                save_array(arr, os.path.join(odir, name[:-4] + '.webp'), 80)
+                save_array(arr, os.path.join(odir, name[:-4] + ".webp"), 88)
             elif name == 'labels.json':
                 shutil.copy(os.path.join(sdir, name), os.path.join(odir, name))
         print('wrote', seq, flush=True)
