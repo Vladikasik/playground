@@ -472,3 +472,9 @@ h1, h2, h3, h4 {
   .hero-photo .hero-shade { height: 58svh; min-height: 340px; }
 }
 .product.dock { margin-top: clamp(56px, 7vw, 100px); }
+.hero-photo .hero-content .h1 { font-size: clamp(38px, 5vw, 80px); max-width: 10ch; }
+.hero-photo .hero-media img { transform: scale(1.15); transform-origin: 0% 55%; }
+.film.film-dark::after { background: linear-gradient(0deg, rgba(5, 6, 8, 0.97) 0%, rgba(5, 6, 8, 0.72) 50%, rgba(5, 6, 8, 0.5) 100%); }
+@media (max-width: 760px) {
+  .hero-photo .hero-media img { transform: none; }
+}
